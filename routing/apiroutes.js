@@ -1,10 +1,6 @@
 const db = require("../db/db.json");
 var fs = require("fs");
 
-//=============================================================================
-//ROUTING
-//=============================================================================
-
 module.exports = function(app) {
   //API GET request
   app.get("/api/notes", function(req, res) {
