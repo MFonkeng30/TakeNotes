@@ -1,28 +1,19 @@
 const express = require("express");
 const app = express();
-const fs = require("fs");
-const path = require("path");
-var http = require("http");
 
+
+// Sets the port
+var PORT = process.env.PORT || 3001;
+
+// Sets the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
-// Test 
-// app.get("/", (request, response) => {
-//     response.send("Test!");
-// })
+//routes from server to user
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
 
-// Get/notes - needs to return notes.html
-app.get("/notes", (request, response) => {
-
-    response.sendFile(path.join(__dirname, "public", "notes.html"));
-    console.log("Your Notes!");
-})
-
-// Get * - needs to return index.html (?)
-app.get("/", (request, response) => {
-    // response.sendFile(path.join(__dirname, "..", "..", "index.html"));
-    response.sendFile(path.join(__dirname, "public", "index.html"));
-    console.log("Your index!");
-})
+app.listen(PORT, function() {
+  console.log("App listening on PORT: " + PORT);
+});
